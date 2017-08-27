@@ -9,9 +9,6 @@ import urllib
 import config
 
 
-
-
-
 def str_time_prop(start, end, format, prop):
     '''Get a time at a proportion of a range of two formatted times.
     start and end should be strings specifying times formated in the
@@ -30,7 +27,7 @@ def random_date(start, end):
     return str_time_prop(start, end, "%d/%m/%Y", random.random())
 
 def random_temp(lat, conf):
-    temp_conf=conf["longitude_temp"]
+    temp_conf=conf["latitude_temp"]
     if(lat>=80):
         return random.normalvariate(temp_conf["80"][0],temp_conf["80"][1]*0.68)
     elif(lat<=80):

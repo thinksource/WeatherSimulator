@@ -3,7 +3,7 @@
   "end_time":"11/08/2017",
   "t_format":"%d/%m/%Y",
   "googlekey":"",
-  "longitude_temp": {
+  "latitude_temp": {
         "80":[-16.7, 35.3],
         "70":[-10.0, 33.0],
         "60":[-1.0,29.8],
