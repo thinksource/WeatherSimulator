@@ -22,7 +22,13 @@ googlekey="YOUR KEY HERE"
 python main.py
 ```
 
+## Test:
+
+```
+python test.py
+```
+
 ## Specification
 
-1,This name of adddress only show the "administrative_area_level_2" or "administrative_area_level_1".
+1,This name of adddress only show the "locality","administrative_area_level_2" or "administrative_area_level_1".
 It do not show details of address District or Road

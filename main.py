@@ -5,7 +5,7 @@ from datetime import datetime
 from utility import *
 import config
 
-# random.seed(os.)
+
 weather=config.weather
 conf=config.conf
 def generate_place(lat, lng):
@@ -24,7 +24,7 @@ def generate_place(lat, lng):
     day=""
     # temperture below -10 degree will just snow
     # temperture between 5 to 10 degree will have all weather
-    # temperture over 5 degree will not snow
+    # temperture over 5 degree will only have rain 
     if(temperture<-10):
         day=weather[random.randrange(len(weather)-1)]
     elif(temperture<5):
@@ -45,7 +45,6 @@ def generate_place(lat, lng):
     re["pressure"]=pressure
     re["humidity"]=humidity
     return re
-    # return "|".join(map(str,[address,location,date,day,tstr,pressure,humidity]))
 
 if __name__ == '__main__':
     re=[]
