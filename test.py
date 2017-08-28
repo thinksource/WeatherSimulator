@@ -4,6 +4,7 @@ import re
 from utility import *
 from datetime import datetime
 from time import mktime
+from main import generate_place
 
 conf=config.conf
 
@@ -41,6 +42,22 @@ class UtilityTests(unittest.TestCase):
     def test_address(self):
         ad=get_address(-33.865,151.2094)
         self.assertEqual(ad, "Sydney")
+        ad=get_address(41.8369,-87.6847)
+        self.assertEqual(ad, "Chicago")
+
+    def test_height(self):
+        h=get_height(-37.83,144.98)
+        self.assertTrue(isinstance(h,float))
+        self.assertTrue(h>18)
+        self.assertTrue(h<19)
+
+class MyTests(unittest.TestCase):
+    def test_place_generate(self):
+        p=generate_place(-37.83,144.98)
+        self.assertEqual(p["address"], 'Melbourne')
+        a=p["location"].split(",")
+        self.assertEqual(str(-37.83), a[0])
+        self.assertEqual(str(144.98),a[1])
 
 if __name__=='__main__':
     unittest.main()

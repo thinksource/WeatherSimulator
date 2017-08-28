@@ -30,13 +30,13 @@ def random_temp(lat, conf):
     temp_conf=conf["latitude_temp"]
     if(lat>=80):
         return random.normalvariate(temp_conf["80"][0],temp_conf["80"][1]*0.68)
-    elif(lat<=80):
+    elif(lat<=-80):
         return random.normalvariate(temp_conf["-80"][0],temp_conf["-80"][1]*0.68)
     else:
         ceil=math.ceil(lat/10)*10
         floor=math.floor(lat/10)*10
-        mu=(temp_conf[str(ceil)][0]*(ceil-lat)+temp_conf[str(floor)][0]*(lat-ceil))/(ceil-floor)
-        sigma=(temp_conf[str(ceil)][1]*(ceil-lat)+temp_conf[str(floor)][1]*(lat-ceil))/(ceil-floor)*0.68
+        mu=(temp_conf[str(ceil)][0]*(ceil-lat)+temp_conf[str(floor)][0]*(lat-floor))/(ceil-floor)
+        sigma=(temp_conf[str(ceil)][1]*(ceil-lat)+temp_conf[str(floor)][1]*(lat-floor))/(ceil-floor)*0.68
         return random.normalvariate(mu, sigma)
 
 
@@ -65,7 +65,7 @@ def get_address(lat, lng):
     args={"latlng":str(lat)+","+str(lng),"key":config.googlekey}
     url="https://maps.googleapis.com/maps/api/geocode/json?{}".format(urllib.parse.urlencode(args))
     r=requests.get(url)
-    re=""
+    rr=""
     #print(str(lat)+","+str(lng))
     if(r.status_code==200):
         re=json.loads(r.text)
@@ -75,11 +75,13 @@ def get_address(lat, lng):
             return ""
         address=re["results"][0]["address_components"]
         for i in address:
+            if "locality" in i["types"] and "political" in i["types"]:
+                return i["long_name"]
             if "administrative_area_level_2" in i["types"]:
                 return i["short_name"]
             if "administrative_area_level_1" in i["types"]:
-                re=i["long_name"]
-        return re
+                rr=i["long_name"]
+        return rr
     else:
         return ""
 
