@@ -17,6 +17,7 @@ In config.py file, input your key for Google Maps Geocoding API and Google Maps 
 googlekey="YOUR KEY HERE"
 ```
 
+And then just run:
 
 ```
 python main.py
