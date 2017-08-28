@@ -76,6 +76,8 @@ def get_address(lat, lng):
         address=re["results"][0]["address_components"]
         for i in address:
             if "locality" in i["types"] and "political" in i["types"]:
+                if any(char.isdigit() for char in i["long_name"]):
+                    continue
                 return i["long_name"]
             if "administrative_area_level_2" in i["types"]:
                 return i["short_name"]
@@ -91,6 +93,8 @@ def get_height(lat, lng):
     r=requests.get(url)
     if(r.status_code==200):
         re=json.loads(r.text)
+        if(len(re["results"])==0):
+            return 0.0
         d=re["results"][0]
         return d['elevation']
     return 0
