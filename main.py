@@ -6,14 +6,15 @@ from utility import *
 import config
 
 # random.seed(os.)
-
+weather=config.weather
+conf=config.conf
 def generate_place():
     humidity=0
     lat=float(format(random.uniform(-90,90),'.2f'))
     lng=float(format(random.uniform(-180,180),'.2f'))
     ele=float(format(get_height(lat,lng),'.2f'))
     address=get_address(lat,lng)
-    date=random_date(config.conf["start_time"], config.conf["end_time"])
+    date=random_date(config.conf["start_time"], config.conf["end_time"]).strftime('%Y-%m-%dT%H:%M:%SZ')
     # temperture on summer every 100 meters above will reduce 0.6 degree，while in winter every 100 meters will reduce 0.36 degree
     # so on average is reduce 0.48 degree on every 100 meteres
     temperture=random_temp(lat,conf)-ele/100*0.48

@@ -21,7 +21,7 @@ def str_time_prop(start, end, format, prop):
     ptime = stime + prop * (etime - stime)
     # print(ptime)
     # return time.strftime(format, time.localtime(ptime))
-    return datetime.fromtimestamp(ptime).strftime('%Y-%m-%dT%H:%M:%SZ')
+    return datetime.fromtimestamp(ptime)
 
 def random_date(start, end):
     return str_time_prop(start, end, "%d/%m/%Y", random.random())
@@ -57,19 +57,15 @@ def random_humidity(day):
         humidity=random.normalvariate(30,20)
     if humidity<0:
         humidity=0
-    return int(humidity)
+    return round(humidity)
 
-def isint(value):
-  try:
-    int(value)
-    return True
-  except:
-    return False
+
 
 def get_address(lat, lng):
     args={"latlng":str(lat)+","+str(lng),"key":config.googlekey}
     url="https://maps.googleapis.com/maps/api/geocode/json?{}".format(urllib.parse.urlencode(args))
     r=requests.get(url)
+    re=""
     #print(str(lat)+","+str(lng))
     if(r.status_code==200):
         re=json.loads(r.text)
@@ -79,9 +75,11 @@ def get_address(lat, lng):
             return ""
         address=re["results"][0]["address_components"]
         for i in address:
+            if "administrative_area_level_2" in i["types"]:
+                return i["short_name"]
             if "administrative_area_level_1" in i["types"]:
-                return i["long_name"]
-        return ""
+                re=i["long_name"]
+        return re
     else:
         return ""
 
