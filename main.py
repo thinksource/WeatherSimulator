@@ -23,7 +23,7 @@ def generate_place(lat, lng):
         temperture=random_temp(lat,conf)
     day=""
     # temperture below -10 degree will just snow
-    # temperture between 5 to 10 degree will have all weather
+    # temperture between -10 to 5 degree will have all weather
     # temperture over 5 degree will only have rain
     if(temperture<-10):
         day=weather[random.randrange(len(weather)-1)]
