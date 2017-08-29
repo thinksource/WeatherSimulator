@@ -19,8 +19,6 @@ def str_time_prop(start, end, format, prop):
     stime = time.mktime(time.strptime(start, format))
     etime = time.mktime(time.strptime(end, format))
     ptime = stime + prop * (etime - stime)
-    # print(ptime)
-    # return time.strftime(format, time.localtime(ptime))
     return datetime.fromtimestamp(ptime)
 
 def random_date(start, end):
@@ -35,9 +33,9 @@ def random_temp(lat, conf):
     else:
         ceil=math.ceil(lat/10)*10
         floor=math.floor(lat/10)*10
-        mu=(temp_conf[str(ceil)][0]*(ceil-lat)+temp_conf[str(floor)][0]*(lat-floor))/(ceil-floor)
+        mean=(temp_conf[str(ceil)][0]*(ceil-lat)+temp_conf[str(floor)][0]*(lat-floor))/(ceil-floor)
         sigma=(temp_conf[str(ceil)][1]*(ceil-lat)+temp_conf[str(floor)][1]*(lat-floor))/(ceil-floor)*0.68
-        return random.normalvariate(mu, sigma)
+        return random.normalvariate(mean, sigma)
 
 
 def random_pressure(elevation):
@@ -69,7 +67,6 @@ def get_address(lat, lng):
     except Error:
         return ""
     rr=""
-    #print(str(lat)+","+str(lng))
     if(r.status_code==200):
         re=json.loads(r.text)
         if(re["status"]=="ZERO_RESULTS"):
