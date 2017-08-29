@@ -45,6 +45,7 @@ class UtilityTests(unittest.TestCase):
         ad=get_address(41.8369,-87.6847)
         self.assertEqual(ad, "Chicago")
 
+   #sometimes it may fail as no googlekey and google may not response correct height
     def test_height(self):
         h=get_height(-37.83,144.98)
         self.assertTrue(isinstance(h,float))

@@ -64,7 +64,10 @@ def random_humidity(day):
 def get_address(lat, lng):
     args={"latlng":str(lat)+","+str(lng),"key":config.googlekey}
     url="https://maps.googleapis.com/maps/api/geocode/json?{}".format(urllib.parse.urlencode(args))
-    r=requests.get(url)
+    try:
+        r=requests.get(url)
+    except Error:
+        return ""
     rr=""
     #print(str(lat)+","+str(lng))
     if(r.status_code==200):
@@ -80,6 +83,8 @@ def get_address(lat, lng):
                     continue
                 return i["long_name"]
             if "administrative_area_level_2" in i["types"]:
+                if any(char.isdigit() for char in i["long_name"]):
+                    continue
                 return i["short_name"]
             if "administrative_area_level_1" in i["types"]:
                 rr=i["long_name"]
@@ -90,11 +95,16 @@ def get_address(lat, lng):
 def get_height(lat, lng):
     args={"locations": str(lat)+","+str(lng),"key":config.googlekey}
     url="https://maps.googleapis.com/maps/api/elevation/json?{}".format(urllib.parse.urlencode(args))
-    r=requests.get(url)
-    if(r.status_code==200):
-        re=json.loads(r.text)
-        if(len(re["results"])==0):
-            return 0.0
-        d=re["results"][0]
-        return d['elevation']
+    try:
+        r=requests.get(url)
+        if(r.status_code==200):
+            re=json.loads(r.text)
+            if(len(re["results"])==0):
+                return 0.0
+            d=re["results"][0]
+            if int(d['elevation'])<0:
+                return 0
+            return d['elevation']
+    except Error:
+        return 0
     return 0

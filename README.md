@@ -1,5 +1,7 @@
 # WeatherSimulator
 
+This script just random select 8-16 random places by latitude and longitude, and provided some mock data for weather.
+It simply random data with common knowledge to make sure the value is at normal weather condition.  
 
 ## how to run:
 
@@ -31,5 +33,5 @@ python test.py
 
 ## Specification
 
-1,This name of adddress only show the "locality","administrative_area_level_2" or "administrative_area_level_1".
+2,This name of adddress only show the "locality","administrative_area_level_2" or "administrative_area_level_1".
 It do not show details of address District or Road
