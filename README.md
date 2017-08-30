@@ -31,7 +31,33 @@ python main.py
 python test.py
 ```
 
-## Specification
+## Specification & Assumption
 
 1,This name of address only show the "locality","administrative_area_level_2" or "administrative_area_level_1".
 It do not show details of address District or Road
+
+2, The output format is
+
+```
+|-40.82,130.09,-5541.03|2013-03-17T16:17:12Z|sunny|-5.7|1070.1|41
+```
+
+if none place is finding out it will not give the None.
+
+3, about the iso8601 format.
+
+In python the iso 8601 format time should be
+
+YYYY-MM-DDTHH:MM:SS.mmmmmm
+
+```
+>>> import datetime
+>>> datetime.datetime.utcnow().isoformat()
+'2017-08-29T11:46:26.349654'
+```
+
+It is obviously different from your document, so I fellow your document time example format instead of iso 8601 format.
+
+```
+YYYY-MM-DDTHH:MM:SSZ
+```
