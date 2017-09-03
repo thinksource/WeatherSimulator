@@ -47,7 +47,7 @@ def random_pressure(elevation):
 
 def random_humidity(day):
     humidity=0
-    if(day==config.weather[0] or day==config.weather[-1]):
+    if(day=="rain" or day=="snow"):
         humidity=random.normalvariate(65, 20)
     elif(day=="cloud"):
         humidity=random.normalvariate(50,20)
