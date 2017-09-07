@@ -1,6 +1,6 @@
 import unittest
 import config
-import re
+
 from utility import *
 from datetime import datetime
 from time import mktime
