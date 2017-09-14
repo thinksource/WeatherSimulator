@@ -64,7 +64,7 @@ def get_address(lat, lng):
     url="https://maps.googleapis.com/maps/api/geocode/json?{}".format(urllib.parse.urlencode(args))
     try:
         r=requests.get(url)
-    except Error:
+    except OSError:
         return ""
     rr=""
     if(r.status_code==200):
@@ -89,6 +89,7 @@ def get_address(lat, lng):
     else:
         return ""
 
+
 def get_height(lat, lng):
     args={"locations": str(lat)+","+str(lng),"key":config.googlekey}
     url="https://maps.googleapis.com/maps/api/elevation/json?{}".format(urllib.parse.urlencode(args))
@@ -102,6 +103,6 @@ def get_height(lat, lng):
             if int(d['elevation'])<0:
                 return 0
             return d['elevation']
-    except Error:
+    except OSError:
         return 0
     return 0
