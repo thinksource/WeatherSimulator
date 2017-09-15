@@ -1,6 +1,7 @@
 import json
 
-import random, time
+import random
+import time
 import os
 from datetime import datetime
 import math
@@ -21,8 +22,10 @@ def str_time_prop(start, end, format, prop):
     ptime = stime + prop * (etime - stime)
     return datetime.fromtimestamp(ptime)
 
+
 def random_date(start, end):
     return str_time_prop(start, end, "%d/%m/%Y", random.random())
+
 
 def random_temp(lat, conf):
     temp_conf=conf["latitude_temp"]
