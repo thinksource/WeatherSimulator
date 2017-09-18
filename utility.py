@@ -63,7 +63,7 @@ def random_humidity(day):
 
 
 def get_address(lat, lng):
-    args = {"latlng":str(lat)+","+str(lng),"key":config.googlekey}
+    args = {"latlng": str(lat)+","+str(lng), "key": config.googlekey}
     url = "https://maps.googleapis.com/maps/api/geocode/json?{}".format(urllib.parse.urlencode(args))
     try:
         r = requests.get(url)
@@ -94,7 +94,7 @@ def get_address(lat, lng):
 
 
 def get_height(lat, lng):
-    args = {"locations": str(lat)+","+str(lng),"key":config.googlekey}
+    args = {"locations": str(lat)+","+str(lng), "key": config.googlekey}
     url = "https://maps.googleapis.com/maps/api/elevation/json?{}".format(urllib.parse.urlencode(args))
     try:
         r = requests.get(url)
