@@ -17,9 +17,10 @@ def generate_place(lat, lng):
 
     ele = float(format(get_height(lat, lng), '.2f'))
     re["address"] = get_address(lat, lng)
-    date = random_date(config.conf["start_time"], config.conf["end_time"]).strftime(
-        '%Y-%m-%dT%H:%M:%SZ')
-    # temperture on summer every 100 meters above will reduce 0.6 degree，while in winter every 100 meters will reduce 0.36 degree
+    date = random_date(config.conf["start_time"],
+                       config.conf["end_time"]).strftime('%Y-%m-%dT%H:%M:%SZ')
+    # temperture on summer every 100 meters above will reduce 0.6 degree，
+    # while in winter every 100 meters will reduce 0.36 degree
     # so on average is reduce 0.48 degree on every 100 meteres
     if(ele >= 0):
         temperture = random_temp(lat, conf) - ele / 100 * 0.48
