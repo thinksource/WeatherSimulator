@@ -44,7 +44,9 @@ class UtilityTests(unittest.TestCase):
         self.assertEqual(ad, "Sydney")
         ad=get_address(41.8369,-87.6847)
         self.assertEqual(ad, "Chicago")
-        # assert the empty string
+
+    # assert the empty string
+    def test_empty_address(self):
         ad=get_address(-87.89,0.25)
         self.assertEqual(ad, "")
 
@@ -54,9 +56,11 @@ class UtilityTests(unittest.TestCase):
         self.assertTrue(isinstance(h, float))
         self.assertTrue(h > 18)
         self.assertTrue(h < 19)
-        # assert the zero height
+
+    # assert the zero height
+    def test_zeroheight(self):
         h=get_height(-18.15,163.15)
-        self.assertTrue(h==0)
+        self.assertTrue(h == 0)
 
 class MyTests(unittest.TestCase):
     def test_place_generate(self):
