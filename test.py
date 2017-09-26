@@ -54,6 +54,9 @@ class UtilityTests(unittest.TestCase):
         self.assertTrue(isinstance(h, float))
         self.assertTrue(h > 18)
         self.assertTrue(h < 19)
+        # assert the zero height
+        h=get_height(-18.15,163.15)
+        self.assertTrue(h==0)
 
 class MyTests(unittest.TestCase):
     def test_place_generate(self):
