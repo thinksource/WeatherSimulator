@@ -2,7 +2,6 @@
   "start_time":"11/06/2006",
   "end_time":"11/08/2017",
   "t_format":"%d/%m/%Y",
-  "googlekey":"",
   "latitude_temp": {
         "80":[-16.7, 35.3],
         "70":[-10.0, 33.0],
