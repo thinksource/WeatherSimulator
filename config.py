@@ -7,7 +7,7 @@ def readconfig(file):
         return d
 
 conf = readconfig("configure.json")
-googlekey = ""
+googlekey = ""  #input the googele key here
 weather = ['snow', 'sunny', 'cloud', 'rain']
 mid_pressure = 1013.25
 sigma_pressure = 12
