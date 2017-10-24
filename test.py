@@ -5,6 +5,7 @@ from utility import *
 from datetime import datetime
 from time import mktime
 from main import generate_place
+from myexception import *
 
 conf=config.conf
 
@@ -40,27 +41,37 @@ class UtilityTests(unittest.TestCase):
         self.assertTrue(d <= 100)
 
     def test_address(self):
-        ad=get_address(-33.865, 151.2094)
-        self.assertEqual(ad, "Sydney")
-        ad=get_address(41.8369,-87.6847)
-        self.assertEqual(ad, "Chicago")
-
+        try:
+            ad=get_address(-33.865, 151.2094)
+            self.assertEqual(ad, "Sydney")
+            ad=get_address(41.8369,-87.6847)
+            self.assertEqual(ad, "Chicago")
+        except Exception as e:
+            self.assertTrue(isinstance(e, DataFormatError) or isinstance(e, NetError))
     # assert the empty string
     def test_empty_address(self):
-        ad=get_address(-87.89,0.25)
-        self.assertEqual(ad, "")
+        try:
+            ad=get_address(-87.89,0.25)
+            self.assertEqual(ad, "")
+        except Exception as e:
+            self.assertTrue(isinstance(e, DataFormatError) or isinstance(e, NetError))
 
    #sometimes it may fail as no googlekey and google may not response correct height
     def test_height(self):
-        h=get_height(-37.83, 144.98)
-        self.assertTrue(isinstance(h, float))
-        self.assertTrue(h > 18)
-        self.assertTrue(h < 19)
-
+        try:
+            h=get_height(-37.83, 144.98)
+            self.assertTrue(isinstance(h, float))
+            self.assertTrue(h > 18)
+            self.assertTrue(h < 19)
+        except Exception as e:
+            self.assertTrue(isinstance(e, DataFormatError) or isinstance(e, NetError))
     # assert the zero height
     def test_zeroheight(self):
-        h=get_height(-18.15,163.15)
-        self.assertTrue(h == 0)
+        try:
+            h=get_height(-18.15,163.15)
+            self.assertTrue(h == 0)
+        except Exception as e:
+            self.assertTrue(isinstance(e, DataFormatError) or isinstance(e, NetError))    
 
 class MyTests(unittest.TestCase):
     def test_place_generate(self):

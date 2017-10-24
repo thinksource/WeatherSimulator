@@ -1,6 +1,6 @@
 # WeatherSimulator
 
-This script just random select 8-16 random places by latitude and longitude, and provided some mock data for weather.
+This script just random select 8-16 random places by latitude and longitude, and provided some mock data for weather. The details of the requirement is on WeatherData.pdf.
 It simply random data with common knowledge to make sure the value is at normal weather condition. Add test on https://travis-ci.org/thinksource/WeatherSimulator
 
 ## how to run:

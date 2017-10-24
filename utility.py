@@ -8,6 +8,13 @@ import math
 import requests
 import urllib
 import config
+from myexception import *
+
+def try_except(success, failure, *exceptions):
+    try:
+        return success() if callable(success) else success
+    except Exception:
+        return failure() if callable(failure) else failure
 
 
 def str_time_prop(start, end, format, prop):
@@ -72,15 +79,15 @@ def get_address(lat, lng):
           format(urllib.parse.urlencode(args))
     try:
         r = requests.get(url)
-    except OSError:
-        return ""
+    except OSError as e:
+        raise NetException(e.message, 400)
     rr = ""
     if(r.status_code == 200):
         re = json.loads(r.text)
         if(re["status"] == "ZERO_RESULTS"):
-            return ""
+            raise DataFormatError("result is empty")
         if(len(re["results"]) == 0):
-            return ""
+            raise DataFormatError("result is empty")
         address = re["results"][0]["address_components"]
         for i in address:
             if "locality" in i["types"] and "political" in i["types"]:
@@ -95,7 +102,7 @@ def get_address(lat, lng):
                 rr = i["long_name"]
         return rr
     else:
-        return ""
+        raise NetException("http return wrong status", r.status_code)
 
 
 def get_height(lat, lng):
@@ -107,11 +114,12 @@ def get_height(lat, lng):
         if(r.status_code == 200):
             re = json.loads(r.text)
             if(len(re["results"]) == 0):
-                return 0.0
+                raise DataFormatError("result is empty")
             d = re["results"][0]
             if int(d['elevation']) < 0:
                 return 0
             return d['elevation']
-    except OSError:
-        return 0
-    return 0
+        else:
+            raise NetException("http return wrong status", r.status_code)
+    except OSError as e:
+        raise NetException(e.message, 400)

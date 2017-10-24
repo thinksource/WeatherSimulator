@@ -5,18 +5,19 @@ import time
 from datetime import datetime
 from utility import *
 import config
+from myexception import *
 
 
 weather = config.weather
 conf = config.conf
-
+exp=[NetError,DataFormatError]
 
 def generate_place(lat, lng):
     re = {}
     humidity = 0
 
-    ele = float(format(get_height(lat, lng), '.2f'))
-    re["address"] = get_address(lat, lng)
+    ele = float(format(try_except(lambda: get_height(lat, lng), 0, exp), '.2f'))
+    re["address"] = try_except(lambda: get_address(lat, lng), '', exp)
     date = random_date(config.conf["start_time"],
                        config.conf["end_time"]).strftime('%Y-%m-%dT%H:%M:%SZ')
     # temperture on summer every 100 meters above will reduce 0.6 degree，
